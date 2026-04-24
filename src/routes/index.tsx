@@ -125,6 +125,17 @@ function Index() {
       <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-primary/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
 
+      {/* Mute toggle */}
+      <button
+        type="button"
+        aria-label={muted ? "Unmute sound" : "Mute sound"}
+        aria-pressed={muted}
+        onClick={() => setMuted((m) => !m)}
+        className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground shadow-md hover:scale-105 transition"
+      >
+        {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </button>
+
       <AnimatePresence mode="wait">
         {!opened ? (
           <motion.div
