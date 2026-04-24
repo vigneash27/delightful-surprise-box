@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import { Volume2, VolumeX } from "lucide-react";
 import { FloatingHearts } from "@/components/FloatingHearts";
 
 export const Route = createFileRoute("/")({
@@ -25,14 +26,89 @@ function fireConfetti() {
   confetti({ particleCount: 140, spread: 100, startVelocity: 45, origin: { y: 0.6 }, colors });
 }
 
+// Synthesize a cute "pop + sparkle" sound with Web Audio (no asset needed)
+let _audioCtx: AudioContext | null = null;
+function getAudioCtx(): AudioContext | null {
+  if (typeof window === "undefined") return null;
+  const Ctx =
+    window.AudioContext ||
+    (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+  if (!Ctx) return null;
+  if (!_audioCtx) _audioCtx = new Ctx();
+  if (_audioCtx.state === "suspended") void _audioCtx.resume();
+  return _audioCtx;
+}
+
+function playPop() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+
+  // Low "pop"
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(420, now);
+  osc.frequency.exponentialRampToValueAtTime(120, now + 0.18);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.35, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + 0.25);
+
+  // Sparkle (ascending arpeggio)
+  const notes = [880, 1175, 1568, 2093];
+  notes.forEach((freq, i) => {
+    const t = now + 0.05 + i * 0.07;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "triangle";
+    o.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+    o.connect(g).connect(ctx.destination);
+    o.start(t);
+    o.stop(t + 0.3);
+  });
+}
+
+function vibrate() {
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    navigator.vibrate?.([30, 40, 60, 40, 90]);
+  }
+}
+
 function Index() {
   const [opened, setOpened] = useState(false);
   const [dodge, setDodge] = useState(0);
+  const [muted, setMuted] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+
+  // Persist mute preference
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = localStorage.getItem("roopa-muted");
+    if (saved === "1") setMuted(true);
+  }, []);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem("roopa-muted", muted ? "1" : "0");
+  }, [muted]);
+
+  const celebrate = () => {
+    fireConfetti();
+    if (!muted) {
+      playPop();
+      vibrate();
+      setTimeout(playPop, 650);
+    }
+  };
 
   const handleClick = () => {
     setOpened(true);
-    fireConfetti();
+    celebrate();
     setTimeout(fireConfetti, 700);
   };
 
@@ -48,6 +124,17 @@ function Index() {
       {/* Glow blobs */}
       <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-primary/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
+
+      {/* Mute toggle */}
+      <button
+        type="button"
+        aria-label={muted ? "Unmute sound" : "Mute sound"}
+        aria-pressed={muted}
+        onClick={() => setMuted((m) => !m)}
+        className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground shadow-md hover:scale-105 transition"
+      >
+        {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </button>
 
       <AnimatePresence mode="wait">
         {!opened ? (
@@ -149,7 +236,7 @@ function Index() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.4 }}
-              onClick={fireConfetti}
+              onClick={celebrate}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="mt-10 font-display text-xl px-8 py-3 rounded-full bg-card border border-border text-foreground hover:bg-muted transition"
