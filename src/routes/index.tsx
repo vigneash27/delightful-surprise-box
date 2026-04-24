@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useRef } from "react";
+import { ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { FloatingHearts } from "@/components/FloatingHearts";
@@ -56,7 +57,7 @@ function Index() {
           className="absolute top-4 left-4 z-20 h-9 w-9 rounded-full bg-card/80 backdrop-blur border border-border text-foreground flex items-center justify-center shadow-sm hover:bg-muted transition"
           aria-label="Back"
         >
-          ←
+          <ArrowLeft className="h-4 w-4" />
         </motion.button>
       )}
 
