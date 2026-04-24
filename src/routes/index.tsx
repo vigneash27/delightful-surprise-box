@@ -236,7 +236,7 @@ function Index() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.4 }}
-              onClick={fireConfetti}
+              onClick={celebrate}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="mt-10 font-display text-xl px-8 py-3 rounded-full bg-card border border-border text-foreground hover:bg-muted transition"
