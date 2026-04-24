@@ -88,7 +88,7 @@ function Index() {
             </motion.button>
 
             <p className="mt-6 text-xs text-muted-foreground/70">
-              (sathiyama onnum illa… maybe 🤭)
+              click pannu
             </p>
           </motion.div>
         ) : (
