@@ -127,7 +127,7 @@ function Index() {
               transition={{ delay: 0.4, type: "spring", bounce: 0.6 }}
               className="font-display text-7xl md:text-9xl text-primary mb-8 drop-shadow-[0_0_30px_oklch(0.78_0.18_0_/_0.6)]"
             >
-              Roopa 💖
+              Vicky 💛
             </motion.h2>
 
             <motion.p
