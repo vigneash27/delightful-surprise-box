@@ -127,7 +127,7 @@ function Index() {
               transition={{ delay: 0.4, type: "spring", bounce: 0.6 }}
               className="font-display text-7xl md:text-9xl text-primary mb-8 drop-shadow-[0_0_30px_oklch(0.78_0.18_0_/_0.6)]"
             >
-              Roopa 💖
+              Vicky 💛
             </motion.h2>
 
             <motion.p
@@ -139,7 +139,11 @@ function Index() {
               un naal ellame chiripa, sandhoshama, surprise-a iruka kadavul kitta keekuren 🌷
               <br />
               <span className="font-display text-2xl md:text-3xl text-primary-glow mt-3 inline-block">
-                — un dear friend
+                "24 vayasu aaiduchu, KitKat vaangi celebrate pannalaam!" 🍫🎂✨
+              </span>
+              <br />
+              <span className="font-display text-xl md:text-2xl text-primary-glow mt-2 inline-block">
+                — un dear friend to Vicky 💛
               </span>
             </motion.p>
 
