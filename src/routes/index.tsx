@@ -45,6 +45,21 @@ function Index() {
     <main className="relative min-h-screen overflow-hidden flex items-center justify-center px-6 py-12">
       <FloatingHearts count={opened ? 22 : 12} />
 
+      {opened && (
+        <motion.button
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+          onClick={() => setOpened(false)}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          className="absolute top-4 left-4 z-20 h-9 w-9 rounded-full bg-card/80 backdrop-blur border border-border text-foreground flex items-center justify-center shadow-sm hover:bg-muted transition"
+          aria-label="Back"
+        >
+          ←
+        </motion.button>
+      )}
+
       {/* Glow blobs */}
       <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-primary/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
