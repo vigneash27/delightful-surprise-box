@@ -94,6 +94,8 @@ function Index() {
         ) : (
           <motion.div
             key="reveal"
+            // back button rendered below
+          >
             initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, type: "spring", bounce: 0.45 }}
