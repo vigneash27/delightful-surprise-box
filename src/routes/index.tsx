@@ -136,14 +136,12 @@ function Index() {
               transition={{ delay: 0.9, duration: 0.6 }}
               className="text-lg md:text-xl text-muted-foreground max-w-md mx-auto leading-relaxed"
             >
-              un naal ellame chiripa, sandhoshama, surprise-a iruka kadavul kitta keekuren 🌷
-              <br />
               <span className="font-display text-2xl md:text-3xl text-primary-glow mt-3 inline-block">
                 "24 vayasu aaiduchu, KitKat vaangi celebrate pannalaam!" 🍫🎂✨
               </span>
               <br />
               <span className="font-display text-xl md:text-2xl text-primary-glow mt-2 inline-block">
-                — un dear friend to Vicky 💛
+                — Vicky 💛
               </span>
             </motion.p>
 
