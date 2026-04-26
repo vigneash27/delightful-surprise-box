@@ -100,7 +100,7 @@ function Index() {
               className="font-display text-2xl md:text-3xl px-10 py-5 rounded-full text-primary-foreground shadow-[var(--shadow-glow)] animate-wiggle"
               style={{ backgroundImage: "var(--gradient-cute)" }}
             >
-              onum illaa kela poru 👀
+              onum illaa kela Pothuru 👀
             </motion.button>
 
             <p className="mt-6 text-xs text-muted-foreground/70">
