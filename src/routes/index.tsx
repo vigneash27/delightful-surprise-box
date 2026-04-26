@@ -86,7 +86,7 @@ function Index() {
               psst… Roopa
             </p>
             <p className="text-muted-foreground text-base md:text-lg mb-10">
-              oru chinna surprise un kaagathaan kaathukittu irukku ✨
+              oru chinna surprise una kaagathaan kaathukittu irukku ✨
             </p>
 
             <motion.button
